@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: user-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://cognito-idp.us-east-1.amazonaws.com/${USER_POOL_ID}/.well-known/jwks.json
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: classpath:liquibase/changelog/db.changelog-master.yaml
+  datasource:
+    url: jdbc:postgresql://bsolz-elearning-2649.j77.aws-ap-south-1.cockroachlabs.cloud:26257/${DB_NAME}?sslmode=verify-full
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      auto-commit: true
+      max-lifetime: 1000
+      idle-timeout: 5000
+      maximum-pool-size: 3
+      minimum-idle: 3
+      connection-timeout: 20000
+  aws:
+    iam:
+      role:
+        arn: ${ROLE_ARN}
+    region: ${REGION}
+    secret:
+      id: ${SECRET_ID}
+server:
+  port: 8081
+eureka:
+  client:
+    enabled: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka

@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - logicalFilePath: "db.changelog-C001-create-tables.yaml"
+  - changeSet:
+      id: C001
+      author: Manomit
+      runOnChange: true
+      changes:
+        - sqlFile:
+            encoding: utf8
+            path: liquibase/sql-scripts/0001_CREATE_TABLES.sql
+            splitStatements: false
